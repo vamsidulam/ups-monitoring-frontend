@@ -1,0 +1,52 @@
+name: Frontend Deployment Dev
+
+env:
+  BRANCH_NAME: main
+  S3_BUCKET_NAME: upsc-test
+  AWS_REGION: ap-south-1
+  CLOUDFRONT_ID: 'E3MRJE21EO05IK'
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ env.BRANCH_NAME }}
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.12.1
+
+      - name: Install Dependencies
+        run: |
+          
+          npm install 
+
+      - name: Build
+        run: npm run build
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Deploy to S3
+        run: aws s3 sync dist/ s3://${{ env.S3_BUCKET_NAME }} --exclude ".htaccess" --delete
+
+      - name: Create CloudFront Invalidation
+        run: |
+          invalidationBatch='{"Paths": {"Quantity": 1, "Items": ["/*"]}, "CallerReference": "'$(uuidgen)'" }'
+          aws cloudfront create-invalidation --distribution-id ${{ env.CLOUDFRONT_ID }} --invalidation-batch "$invalidationBatch"

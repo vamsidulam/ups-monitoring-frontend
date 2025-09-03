@@ -1,0 +1,183 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* UPS Monitoring Dashboard Design System */
+
+@layer base {
+  :root {
+    /* Base Colors */
+    --background: 240 10% 98%;
+    --foreground: 240 10% 15%;
+
+    /* Surface Colors */
+    --card: 240 6% 100%;
+    --card-foreground: 240 10% 15%;
+
+    --popover: 240 6% 100%;
+    --popover-foreground: 240 10% 15%;
+
+    /* Brand Colors - Professional Blue */
+    --primary: 218 88% 42%;
+    --primary-foreground: 240 6% 100%;
+    --primary-glow: 218 88% 55%;
+
+    /* Status Colors - UPS Health Indicators */
+    --success: 142 76% 36%;
+    --success-foreground: 240 6% 100%;
+    --success-glow: 142 72% 50%;
+
+    --warning: 45 93% 58%;
+    --warning-foreground: 45 30% 8%;
+    --warning-glow: 45 93% 70%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 240 6% 100%;
+    --destructive-glow: 0 84% 72%;
+
+    /* Surface Variants */
+    --secondary: 240 6% 96%;
+    --secondary-foreground: 240 10% 15%;
+
+    --muted: 240 6% 94%;
+    --muted-foreground: 240 5% 50%;
+
+    --accent: 240 6% 92%;
+    --accent-foreground: 240 10% 15%;
+
+    /* Interactive Elements */
+    --border: 240 6% 88%;
+    --input: 240 6% 100%;
+    --ring: 218 88% 42%;
+
+    /* Design System Tokens */
+    --radius: 0.75rem;
+
+    /* Dashboard Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(218 88% 42%), hsl(218 88% 55%));
+    --gradient-success: linear-gradient(135deg, hsl(142 76% 36%), hsl(142 72% 50%));
+    --gradient-warning: linear-gradient(135deg, hsl(45 93% 58%), hsl(45 93% 70%));
+    --gradient-destructive: linear-gradient(135deg, hsl(0 84% 60%), hsl(0 84% 72%));
+    --gradient-surface: linear-gradient(180deg, hsl(240 6% 100%), hsl(240 6% 98%));
+
+    /* Shadows */
+    --shadow-elegant: 0 4px 24px -4px hsl(240 10% 15% / 0.08);
+    --shadow-status: 0 0 20px hsl(var(--primary-glow) / 0.3);
+    --shadow-success: 0 0 20px hsl(var(--success-glow) / 0.3);
+    --shadow-warning: 0 0 20px hsl(var(--warning-glow) / 0.3);
+    --shadow-destructive: 0 0 20px hsl(var(--destructive-glow) / 0.3);
+
+    /* Transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Sidebar Colors - Professional Dark */
+    --sidebar-background: 240 10% 12%;
+    --sidebar-foreground: 240 6% 90%;
+    --sidebar-primary: 218 88% 42%;
+    --sidebar-primary-foreground: 240 6% 100%;
+    --sidebar-accent: 240 8% 16%;
+    --sidebar-accent-foreground: 240 6% 90%;
+    --sidebar-border: 240 8% 18%;
+  }
+
+  .dark {
+    /* Base Colors - Dark Mode */
+    --background: 240 10% 8%;
+    --foreground: 240 6% 95%;
+
+    /* Surface Colors */
+    --card: 240 10% 12%;
+    --card-foreground: 240 6% 95%;
+
+    --popover: 240 10% 12%;
+    --popover-foreground: 240 6% 95%;
+
+    /* Brand Colors - Brighter in Dark */
+    --primary: 218 88% 55%;
+    --primary-foreground: 240 10% 8%;
+    --primary-glow: 218 88% 65%;
+
+    /* Status Colors - Adjusted for Dark */
+    --success: 142 72% 45%;
+    --success-foreground: 240 10% 8%;
+    --success-glow: 142 72% 55%;
+
+    --warning: 45 93% 65%;
+    --warning-foreground: 45 50% 8%;
+    --warning-glow: 45 93% 75%;
+
+    --destructive: 0 84% 72%;
+    --destructive-foreground: 240 10% 8%;
+    --destructive-glow: 0 84% 80%;
+
+    /* Surface Variants */
+    --secondary: 240 8% 16%;
+    --secondary-foreground: 240 6% 95%;
+
+    --muted: 240 8% 18%;
+    --muted-foreground: 240 5% 65%;
+
+    --accent: 240 8% 20%;
+    --accent-foreground: 240 6% 95%;
+
+    /* Interactive Elements */
+    --border: 240 8% 20%;
+    --input: 240 8% 16%;
+    --ring: 218 88% 55%;
+
+    /* Sidebar in Dark Mode */
+    --sidebar-background: 240 10% 6%;
+    --sidebar-foreground: 240 6% 95%;
+    --sidebar-primary: 218 88% 55%;
+    --sidebar-primary-foreground: 240 10% 8%;
+    --sidebar-accent: 240 8% 12%;
+    --sidebar-accent-foreground: 240 6% 95%;
+    --sidebar-border: 240 8% 14%;
+    --sidebar-ring: 218 88% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground transition-all duration-300;
+  }
+}
+
+/* Custom Dashboard Components */
+@layer components {
+  .status-indicator {
+    @apply inline-flex items-center justify-center w-3 h-3 rounded-full;
+  }
+
+  .status-healthy {
+    @apply bg-success text-success-foreground shadow-success animate-pulse;
+  }
+
+  .status-warning {
+    @apply bg-warning text-warning-foreground shadow-warning animate-pulse;
+  }
+
+  .status-failed {
+    @apply bg-destructive text-destructive-foreground shadow-destructive animate-pulse;
+  }
+
+  .status-risky {
+    @apply bg-orange-500 text-white shadow-orange-500/30 animate-pulse;
+  }
+
+  .dashboard-card {
+    @apply bg-card border border-border rounded-lg shadow-elegant hover:shadow-lg transition-all duration-300;
+  }
+
+  .metric-card {
+    @apply dashboard-card p-6 bg-gradient-to-br from-card to-card/95;
+  }
+
+  .alert-banner {
+    @apply bg-destructive/10 border-l-4 border-destructive text-destructive-foreground p-4 rounded-r-lg animate-pulse;
+  }
+}
