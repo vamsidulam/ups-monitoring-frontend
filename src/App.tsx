@@ -24,7 +24,12 @@ if (!clerkPublishableKey) {
 }
 
 const App = () => (
-  <ClerkProvider publishableKey={clerkPublishableKey} signInUrl="/sign-in" signUpUrl="/sign-up" afterSignInUrl="/dashboard" afterSignUpUrl="/dashboard">
+  <ClerkProvider
+    publishableKey={clerkPublishableKey}
+    signInUrl="/sign-in"
+    signUpUrl="/sign-up"
+    fallbackRedirectUrl="/dashboard"
+  >
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
